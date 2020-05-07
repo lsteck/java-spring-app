@@ -7,7 +7,7 @@ LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
 RUN chmod -R 777 /lib/systemd/system
-RUN chmod -R 777 /usr/share/doc/multiarch-support
+RUN chmod -R 777 /usr/share/doc
 USER root
 RUN apt-get update 
 RUN apt-get install -y maven
