@@ -6,6 +6,7 @@ FROM ibmjava:8-sdk AS builder
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
+RUN apt-get install sudo
 RUN sudo apt-get update && sudo apt-get install -y maven
 
 COPY pom.xml .
