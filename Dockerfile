@@ -9,8 +9,7 @@ WORKDIR /app
 RUN chmod -R 777 /lib/systemd/system
 USER root
 RUN apt-get update 
-RUN apt-get install -y sudo
-RUN sudo apt-get install -y maven
+RUN apt-get install -y maven
 
 COPY pom.xml .
 RUN mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
