@@ -6,11 +6,7 @@ FROM ibmjava:8-sdk AS builder
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
-RUN chmod -R 777 /lib/systemd/system
-RUN chmod -R 777 /usr/share/doc
-USER root
-RUN apt-get update 
-RUN apt-get install -y maven
+RUN apt-get update && apt-get install -y maven
 
 COPY pom.xml .
 RUN mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
