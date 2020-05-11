@@ -13,6 +13,8 @@ WORKDIR /app
 # RUN apt-get update && apt-get install -y maven
 
 COPY pom.xml .
+# https://github.com/aws/aws-codebuild-docker-images/issues/237
+ENV MAVEN_CONFIG '' 
 RUN mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
 
 COPY . /app
