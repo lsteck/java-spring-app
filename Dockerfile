@@ -3,7 +3,7 @@
 # https://github.com/ibmruntimes/ci.docker/tree/master/ibmjava/8/sdk/ubi-min
 
 # FROM ibmjava:8-sdk AS builder
-FROM maven:3.6.3-jdk-8-alpine AS builder
+FROM maven:3.6.3-alpine AS builder
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
