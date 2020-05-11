@@ -276,7 +276,7 @@ spec:
 
                     echo MAVEN_CONFIG=${MAVEN_CONFIG}
 
-                    unset MAVEN_CONFIG
+                    # unset MAVEN_CONFIG
 
                     echo MAVEN_CONFIG=${MAVEN_CONFIG}
  
