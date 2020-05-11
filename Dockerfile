@@ -7,8 +7,8 @@ LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
 # fix permissions error.
-RUN chgrp -R 0 /some/directory && \
-    chmod -R g+rwX /some/directory
+RUN chgrp -R 0 /usr/share/doc && \
+    chmod -R g+rwX /usr/share/doc
 RUN apt-get update && apt-get install -y maven
 
 COPY pom.xml .
