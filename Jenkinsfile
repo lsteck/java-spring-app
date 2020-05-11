@@ -274,6 +274,12 @@ spec:
 
                     APP_IMAGE="${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_VERSION}"
 
+                    echo MAVEN_CONFIG=${MAVEN_CONFIG}
+
+                    unset MAVEN_CONFIG
+
+                    echo MAVEN_CONFIG=${MAVEN_CONFIG}
+ 
                     buildah bud --tls-verify=${TLSVERIFY} --format=docker -f ${DOCKERFILE} -t ${APP_IMAGE} ${CONTEXT}
                     if [[ -n "${REGISTRY_USER}" ]] && [[ -n "${REGISTRY_PASSWORD}" ]]; then
                         buildah login -u "${REGISTRY_USER}" -p "${REGISTRY_PASSWORD}" "${REGISTRY_URL}"

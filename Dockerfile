@@ -14,7 +14,10 @@ WORKDIR /app
 
 COPY pom.xml .
 # https://github.com/aws/aws-codebuild-docker-images/issues/237
-ENV MAVEN_CONFIG '' 
+# ENV MAVEN_CONFIG '' 
+# This broke the Tag release step in build number 17
+# See https://issues.jenkins-ci.org/browse/JENKINS-47890
+# put unset MAVEN_CONFIG in script
 RUN mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
 
 COPY . /app
