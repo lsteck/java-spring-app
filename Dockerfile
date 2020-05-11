@@ -2,17 +2,17 @@
 # base as builder until this is ready. For reference:
 # https://github.com/ibmruntimes/ci.docker/tree/master/ibmjava/8/sdk/ubi-min
 
-FROM ibmjava:8-sdk AS builder
-# FROM maven:3.6.3-jdk-8 AS builder
+# FROM ibmjava:8-sdk AS builder
+FROM maven:3.6.3-jdk-8-alpine AS builder
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
 # fix permissions error.
-USER root
-RUN chgrp -R 0 /usr/share/doc && \
-    chmod -R g+rwX /usr/share/doc && \
-    chown -R 100:0 /usr/share/doc
-RUN apt-get update && apt-get install -y maven
+# USER root
+# RUN chgrp -R 0 /usr/share/doc && \
+#     chmod -R g+rwX /usr/share/doc && \
+#     chown -R 100:0 /usr/share/doc
+# RUN apt-get update && apt-get install -y maven
 
 COPY pom.xml .
 # https://github.com/aws/aws-codebuild-docker-images/issues/237
@@ -20,6 +20,7 @@ COPY pom.xml .
 # This broke the Tag release step in build number 17
 # See https://issues.jenkins-ci.org/browse/JENKINS-47890
 # put unset MAVEN_CONFIG in script
+# Still borke it
 RUN mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
 
 COPY . /app
