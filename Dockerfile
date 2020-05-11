@@ -6,6 +6,9 @@ FROM ibmjava:8-sdk AS builder
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
+# fix permissions error.
+RUN chgrp -R 0 /some/directory && \
+    chmod -R g+rwX /some/directory
 RUN apt-get update && apt-get install -y maven
 
 COPY pom.xml .
