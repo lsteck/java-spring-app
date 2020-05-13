@@ -54,4 +54,6 @@ FROM adoptopenjdk/openjdk8:ubi-jre
 RUN mkdir /opt/app
 COPY --from=builder /app/target/javaspringapp-1.0-SNAPSHOT.jar /opt/app/app.jar
 
+EXPOSE 8080/tcp
+
 ENTRYPOINT [ "sh", "-c", "java -jar /opt/app/app.jar" ]
