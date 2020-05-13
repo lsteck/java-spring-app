@@ -9,10 +9,10 @@ LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
 # fix permissions error.
-USER root
-RUN chgrp -R 0 /usr/share && \
-    chmod -R g+rwX /usr/share && \
-    chown -R 100:0 /usr/share
+# USER root
+# RUN chgrp -R 0 /usr/share && \
+#     chmod -R g+rwX /usr/share && \
+#     chown -R 100:0 /usr/share
 # RUN apt-get update && apt-get install -y maven
 
 COPY pom.xml .
@@ -28,12 +28,12 @@ COPY . /app
 # ENV M2_HOME /usr/share/maven
 # ENV M3_HOME /usr/share/maven
 # ENV PATH /usr/share/maven/bin:$PATH
-RUN ls /usr/share/maven
-RUN printenv
+# RUN ls /usr/share/maven
+# RUN printenv
 # RUN ./mvnw install
-RUN java -version
-RUN mvn -version
-RUN mvn -f ./pom.xml install
+# RUN java -version
+# RUN mvn -version
+RUN mvn install
 
 ARG bx_dev_user=root
 ARG bx_dev_userid=1000
