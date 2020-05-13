@@ -3,7 +3,8 @@
 # https://github.com/ibmruntimes/ci.docker/tree/master/ibmjava/8/sdk/ubi-min
 
 # FROM ibmjava:8-sdk AS builder
-FROM openjdk:8 AS builder
+# FROM openjdk:8 AS builder
+FROM maven:3.6.3-jdk-8 AS builder
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
@@ -12,7 +13,7 @@ USER root
 RUN chgrp -R 0 /usr/share && \
     chmod -R g+rwX /usr/share && \
     chown -R 100:0 /usr/share
-RUN apt-get update && apt-get install -y maven
+# RUN apt-get update && apt-get install -y maven
 
 COPY pom.xml .
 # https://github.com/aws/aws-codebuild-docker-images/issues/237
@@ -21,10 +22,18 @@ COPY pom.xml .
 # See https://issues.jenkins-ci.org/browse/JENKINS-47890
 # put unset MAVEN_CONFIG in script
 # Still borke it
-RUN mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
+# RUN mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
 
 COPY . /app
-RUN ./mvnw install
+# ENV M2_HOME /usr/share/maven
+# ENV M3_HOME /usr/share/maven
+# ENV PATH /usr/share/maven/bin:$PATH
+RUN ls /usr/share/maven
+RUN printenv
+# RUN ./mvnw install
+RUN java -version
+RUN mvn -version
+RUN mvn -f ./pom.xml install
 
 ARG bx_dev_user=root
 ARG bx_dev_userid=1000
