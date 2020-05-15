@@ -8,31 +8,11 @@ FROM maven:3.6.3-jdk-8 AS builder
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
-# fix permissions error.
-# USER root
-# RUN chgrp -R 0 /usr/share && \
-#     chmod -R g+rwX /usr/share && \
-#     chown -R 100:0 /usr/share
-# RUN apt-get update && apt-get install -y maven
 
 COPY pom.xml .
-# https://github.com/aws/aws-codebuild-docker-images/issues/237
-# ENV MAVEN_CONFIG '' 
-# This broke the Tag release step in build number 17
-# See https://issues.jenkins-ci.org/browse/JENKINS-47890
-# put unset MAVEN_CONFIG in script
-# Still borke it
-# RUN mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
 
 COPY . /app
-# ENV M2_HOME /usr/share/maven
-# ENV M3_HOME /usr/share/maven
-# ENV PATH /usr/share/maven/bin:$PATH
-# RUN ls /usr/share/maven
-# RUN printenv
-# RUN ./mvnw install
-# RUN java -version
-# RUN mvn -version
+
 RUN mvn install
 
 ARG bx_dev_user=root
